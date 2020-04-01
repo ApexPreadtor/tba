@@ -77,7 +77,7 @@ public class TheMainWarehouse extends JComponent {
     }
 
 
-    public void overviewWindow() {
+   public void overviewWindow() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
@@ -87,17 +87,30 @@ public class TheMainWarehouse extends JComponent {
         frame.setTitle("Overview");
         frame.pack();
         frame.setVisible(true);
-        DefaultListModel newListModel = new DefaultListModel();
-        for (Vehicle v : vehiclesList) {
-            newListModel.addElement("(" + v.getType() + " , " + v.getColor() + " , " + v.getDirection() + ")" + "\n");
-        }
-        //originalJList.setModel(newListModel);
-        JList list = new JList();
-        list.setModel(newListModel);
-        list.setVisible(true);
-        panel.add(list, BorderLayout.SOUTH);
-        panel.invalidate();
 
+        DefaultTableModel model = new DefaultTableModel();
+        JTable table = new JTable(model);
+        model.addColumn("Type");
+        model.addColumn("Color");
+        model.addColumn("Direction");
+        // j = new JTable(data, columnNames);
+        //j.setBounds(30, 40, 200, 300);
+        for (Vehicle v : vehiclesList) {
+            model.addRow(new Object[]{v.getType(), v.getColor(), v.getDirection()});
+        }      //addElement("(" + v.getType() + " , " + v.getColor() + " , " + v.getDirection() + ")" + "\n");
+
+        //originalJList.setModel(newListModel);
+        //j = new JTable(data, columnNames);
+        //j.setBounds(30, 40, 200, 300);
+
+        // adding it to JScrollPane
+        //JScrollPane sp = new JScrollPane(j);
+        //panel.add(sp);
+        /*JList list = new JList();
+        list.setModel(newListModel);
+        list.setVisible(true);*/
+        panel.add(table);
+        panel.invalidate();
     }
 
     public void addWindow() {
